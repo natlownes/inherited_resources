@@ -127,6 +127,11 @@ module InheritedResources
       def symbols_for_association_chain #:nodoc:
         polymorphic_config = resources_configuration[:polymorphic]
 
+        #puts self.class.name
+        #puts parents_symbols.inspect
+        #puts resources_configuration[:polymorphic].inspect
+        #puts polymorphic_config[:symbols].inspect
+
         parents_symbols.map do |symbol|
           if symbol == :polymorphic
             params_keys = params.keys

@@ -17,13 +17,13 @@ require 'mocha'
 ENV["RAILS_ENV"] = "test"
 RAILS_ROOT = "anywhere"
 
-require "active_support"
-require "active_model"
+gem 'responders', '~> 0.4.6'
 
-require "action_controller"
-require "action_dispatch/middleware/flash"
+gem 'activesupport', '= 2.3.5'
+require 'active_support'
 
-require "rails/railtie"
+gem 'actionpack', '= 2.3.5'
+require 'action_controller'
 
 I18n.load_path << File.join(File.dirname(__FILE__), 'locales', 'en.yml')
 I18n.reload!
@@ -36,14 +36,6 @@ require_dependency 'inherited_resources'
 
 ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
-InheritedResources::Router = ActionDispatch::Routing::RouteSet.new
-InheritedResources::Router.draw do |map|
+ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
-  map.connect ':controller/:action'
-end
-
-class ActiveSupport::TestCase
-  setup do
-    @router = InheritedResources::Router
-  end
 end

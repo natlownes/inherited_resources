@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/test_helper'
 
 class User
-  extend ActiveModel::Naming
+  def self.human_name; 'User'; end
 end
 
 class AccountsController < InheritedResources::Base

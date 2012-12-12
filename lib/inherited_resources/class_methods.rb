@@ -147,6 +147,9 @@ module InheritedResources
         raise ArgumentError, 'You have to give me at least one association name.' if symbols.empty?
         raise ArgumentError, 'You cannot define multiple associations with options: #{options.keys.inspect} to belongs to.' unless symbols.size == 1 || options.empty?
 
+        #puts self.name
+        #puts symbols.inspect
+
         symbols.each do |symbol|
           symbol = symbol.to_sym
 
@@ -251,6 +254,8 @@ module InheritedResources
 
         # Initialize polymorphic, singleton, scopes and belongs_to parameters
         self.parents_symbols ||= []
+        pp self.inspect
+        pp resources_configuration[:polymorphic]
         self.resources_configuration[:polymorphic] ||= { :symbols => [], :optional => false }
       end
 

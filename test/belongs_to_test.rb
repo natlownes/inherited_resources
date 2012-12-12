@@ -1,11 +1,10 @@
 require File.dirname(__FILE__) + '/test_helper'
 
 class Post
-  extend ActiveModel::Naming
 end
 
 class Comment
-  extend ActiveModel::Naming
+  def self.human_name; 'Comment'; end
 end
 
 class CommentsController < InheritedResources::Base

@@ -1,4 +1,13 @@
+# respond_to is the only file that should be loaded before hand. All others
+# are loaded on demand.
+#
+unless defined?(ActionController::Responder)
+  require 'inherited_resources/legacy/responder'
+  require 'inherited_resources/legacy/respond_to'
+end
+
 require 'responders'
+I18n.load_path.unshift File.expand_path(File.join(File.dirname(__FILE__), 'inherited_resources', 'locales', 'en.yml'))
 
 module InheritedResources
   ACTIONS = [ :index, :show, :new, :edit, :create, :update, :destroy ] unless self.const_defined?(:ACTIONS)
@@ -18,14 +27,11 @@ module InheritedResources
   def self.flash_keys=(array)
     Responders::FlashResponder.flash_keys = array
   end
-
-  class Railtie < ::Rails::Railtie
-    railtie_name :inherited_resources
-    config.generators.scaffold_controller = :inherited_resources_controller
-  end
 end
 
 class ActionController::Base
+  public :flash, :render
+
   # If you cannot inherit from InheritedResources::Base you can call
   # inherit_resource in your controller to have all the required modules and
   # funcionality included.
