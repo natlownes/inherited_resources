@@ -132,7 +132,11 @@ module InheritedResources
             params_keys = params.keys
 
             key = polymorphic_config[:symbols].find do |poly|
-              params_keys.include? resources_configuration[poly][:param].to_s
+              begin
+                params_keys.include? resources_configuration[poly][:param].to_s
+              rescue
+                nil
+              end
             end
 
             if key.nil?
